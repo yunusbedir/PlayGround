@@ -11,10 +11,24 @@ android {
         applicationId "com.yunusbedir.playground"
         minSdk 21
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    flavorDimensions 'app'
+    productFlavors {
+        qa {
+            dimension 'app'
+            versionCode 1
+            versionName "1.0"
+            buildConfigField "String", "MOCK_API_BASE_URL", "\"https://6347150504a6d45757a023b2.mockapi.io/\""
+        }
+        prod {
+            dimension 'app'
+            versionCode 1
+            versionName "1.0"
+            buildConfigField "String", "MOCK_API_BASE_URL", "\"https://6347150504a6d45757a023b2.mockapi.io/\""
+        }
     }
 
     buildTypes {
@@ -23,10 +37,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
