@@ -16,3 +16,4 @@ rootProject.name = "Play Ground"
 include ':app'
 include ':app:base'
 include ':services'
+include ':widget'

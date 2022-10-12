@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Custom Spinner-->
+    <declare-styleable name="CustomSpinner">
+        <attr name="isSpinner" />
+    </declare-styleable>
+
+    <attr name="isSpinner" format="boolean"  />
+</resources>
