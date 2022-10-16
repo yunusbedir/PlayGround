@@ -50,6 +50,8 @@ jobs:
     # Gets the download URL associated with the $DETEKT_RELEASE_TAG
     - name: Get Detekt download URL
       id: detekt_info
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         gh api graphql --field tagName=$DETEKT_RELEASE_TAG --raw-field query='
           query getReleaseAssetDownloadUrl($tagName: String!) {
