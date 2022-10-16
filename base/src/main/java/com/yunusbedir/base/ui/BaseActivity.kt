@@ -19,6 +19,7 @@ abstract class BaseActivity<VB : ViewBinding>(
         savedInstanceState: Bundle?
     ) {
         super.onCreate(savedInstanceState)
+        onBeforeSetContent()
         _binding = bindingInflater.invoke(layoutInflater)
         setContentView(_binding!!.root)
         setup()
@@ -44,14 +45,19 @@ abstract class BaseActivity<VB : ViewBinding>(
             }
         }
     }
+
+    protected open fun onBeforeSetContent(){
+
+    }
     // endregion generic fun
 
     // region abstract fun
-    abstract fun setupUI()
 
-    abstract fun setupCollectAndObserve()
+    protected abstract fun setupUI()
 
-    abstract fun setupListeners()
+    protected abstract fun setupCollectAndObserve()
+
+    protected abstract fun setupListeners()
     // endregion abstract fun
 
 }
