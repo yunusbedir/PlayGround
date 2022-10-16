@@ -40,7 +40,7 @@ object NetworkModule {
                     if (BuildConfig.DEBUG) {
                         Log.d("okhttp", message)
                     }
-                } catch (e: Exception) {
+                } catch (_: Exception) {
 
                 }
             }
