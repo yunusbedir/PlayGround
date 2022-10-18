@@ -28,7 +28,10 @@ jobs:
 
       - name: Run Detekt
         run: ./gradlew detekt --stacktrace
-
+        
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+        
       - name: Stop Gradle
         run: ./gradlew --stop
   unit-tests:
