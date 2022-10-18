@@ -55,7 +55,9 @@ jobs:
           java-version: '11'
 
       - name: Run Debug Unit Tests
-        run: ./gradlew test --stacktrace
+        run: |
+          chmod +x gradlew
+          ./gradlew test --stacktrace
 
       - name: Stop Gradle
         run: ./gradlew --stop
@@ -82,7 +84,9 @@ jobs:
           java-version: '11'
 
       - name: Build app and test APKs
-        run: ./gradlew :app:assembleDebug && ./gradlew  :app:assembleDebugAndroidTest
+        run: |
+          chmod +x gradlew
+          ./gradlew :app:assembleDebug && ./gradlew  :app:assembleDebugAndroidTest
 
       - name: Stop Gradle
         run: ./gradlew --stop
@@ -108,7 +112,9 @@ jobs:
           java-version: '11'
 
       - name: Check API compatibility
-        run: ./gradlew apiCheck
+        run: |
+          chmod +x gradlew
+          ./gradlew apiCheck
 
       - name: Stop Gradle
         run: ./gradlew --stop
