@@ -2,6 +2,7 @@ package com.yunusbedir.playground.di
 
 import android.util.Log
 import com.yunusbedir.playground.BuildConfig
+import com.yunusbedir.playground.data.remote.RemoteConstants
 import com.yunusbedir.playground.data.remote.service.MockApiService
 import dagger.Module
 import dagger.Provides
@@ -32,15 +33,15 @@ object NetworkModule {
     @Provides
     fun provideOkHttp(): OkHttpClient {
         return OkHttpClient.Builder().apply {
-            connectTimeout(60, TimeUnit.SECONDS)
-            readTimeout(60, TimeUnit.SECONDS)
-            writeTimeout(60, TimeUnit.SECONDS)
+            connectTimeout(RemoteConstants.TIME_OUT, TimeUnit.SECONDS)
+            readTimeout(RemoteConstants.TIME_OUT, TimeUnit.SECONDS)
+            writeTimeout(RemoteConstants.TIME_OUT, TimeUnit.SECONDS)
             val interceptor = HttpLoggingInterceptor { message ->
                 try {
                     if (BuildConfig.DEBUG) {
                         Log.d("okhttp", message)
                     }
-                } catch (e: Exception) {
+                } catch (_: Exception) {
 
                 }
             }

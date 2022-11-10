@@ -1,3 +1,8 @@
+include(":app")
+include(":base")
+include(":services")
+include(":widget")
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -12,8 +17,3 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Play Ground"
-include ':app'
-include ':base'
-include ':services'
-include ':widget'

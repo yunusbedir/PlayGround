@@ -9,7 +9,7 @@ import java.util.*
 class CustomArrayAdapter(context: Context, resource: Int, list: ArrayList<String>) :
     ArrayAdapter<String>(
         context,
-        R.layout.custom_item_view_spinner,
+        resource,
         R.id.custom_layout_textview,
         list
     ) {

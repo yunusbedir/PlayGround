@@ -11,8 +11,7 @@ import androidx.core.widget.doOnTextChanged
 import com.google.android.material.textfield.TextInputLayout
 import com.yunusbedir.widget.R
 
-class CustomSpinner : TextInputLayout, AdapterView.OnItemSelectedListener,
-    AdapterView.OnItemClickListener {
+class CustomSpinner : TextInputLayout, AdapterView.OnItemClickListener {
 
     private var attrs: AttributeSet? = null
 
@@ -31,6 +30,12 @@ class CustomSpinner : TextInputLayout, AdapterView.OnItemSelectedListener,
         this.attrs = attrs
         getAttributes()
     }
+
+    var currentList: List<String>
+        set(value) {
+            autoCompleteTextViewAdapter.setList(value)
+        }
+        get() = autoCompleteTextViewAdapter.getList()
 
     private var autoCompleteTextViewAdapter = CustomArrayAdapter(
         context, R.layout.custom_item_view_spinner, arrayListOf()
@@ -52,8 +57,8 @@ class CustomSpinner : TextInputLayout, AdapterView.OnItemSelectedListener,
         boxBackgroundMode = BOX_BACKGROUND_OUTLINE
         boxBackgroundColor = Color.WHITE
         endIconMode = END_ICON_DROPDOWN_MENU
-        setPadding(0, 0, 0, 0)
-        setBoxCornerRadii(10F, 10F, 10F, 10F)
+        setPadding(ZERO, ZERO, ZERO, ZERO)
+        setBoxCornerRadii(BOX_CORNER_RADII, BOX_CORNER_RADII, BOX_CORNER_RADII, BOX_CORNER_RADII)
         createAutoCompleteTextView()
         setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) autoCompleteTextView?.showDropDown()
@@ -71,17 +76,16 @@ class CustomSpinner : TextInputLayout, AdapterView.OnItemSelectedListener,
     private fun createAutoCompleteTextView() {
         val layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
         autoCompleteTextView = AutoCompleteTextView(context)
-        autoCompleteTextView?.setPadding(40, 0, 0, 0)
+        autoCompleteTextView?.setPadding(PADDING_LEFT, ZERO, ZERO, ZERO)
         autoCompleteTextView?.layoutParams = layoutParams
         autoCompleteTextView?.setAdapter(autoCompleteTextViewAdapter)
         autoCompleteTextView?.imeOptions = IME_FLAG_NO_FULLSCREEN
         autoCompleteTextView?.threshold = 1
         autoCompleteTextView?.isSingleLine = true
         autoCompleteTextView?.maxLines = 1
-        autoCompleteTextView?.textSize = 10F
-        autoCompleteTextView?.onItemSelectedListener = this
+        autoCompleteTextView?.textSize = TEXT_SIZE
         autoCompleteTextView?.onItemClickListener = this
-        autoCompleteTextView?.doOnTextChanged { text, start, before, count ->
+        autoCompleteTextView?.doOnTextChanged { text, _, _, _ ->
             onTextChangeListener?.onTextChange(text)
         }
         autoCompleteTextView?.setOnClickListener {
@@ -89,21 +93,6 @@ class CustomSpinner : TextInputLayout, AdapterView.OnItemSelectedListener,
         }
         autoCompleteTextView?.setSelection(0)
         addView(autoCompleteTextView)
-    }
-
-    fun setList(list: List<String>) {
-        autoCompleteTextViewAdapter.setList(list)
-    }
-
-    fun getList(): List<String> {
-        return autoCompleteTextViewAdapter.getList()
-    }
-
-    fun addAll(list: List<String>) {
-        val tempList = arrayListOf<String>()
-        tempList.addAll(getList())
-        tempList.addAll(list)
-        autoCompleteTextViewAdapter.setList(tempList)
     }
 
     fun getSelectedItem(): String {
@@ -114,29 +103,28 @@ class CustomSpinner : TextInputLayout, AdapterView.OnItemSelectedListener,
         return autoCompleteTextView?.selectionStart ?: 0
     }
 
-
     /**
      * setSelectionItem -1 when you want select last item
      */
     fun setSelectionItem(position: Int) {
-        if (position == -1) {
-            autoCompleteTextView?.setSelection(getList().size - 1)
+        if (position == -1 && currentList.isNotEmpty()) {
+            autoCompleteTextView?.setSelection(currentList.size - 1)
             return
         }
-        if (position < getList().size && position >= 0) {
-            try {
-                if (position == -1) {
-                    autoCompleteTextView?.setText(getList()[getList().size - 1], false)
-                    return
-                }
-                if (position < getList().size && position >= 0) {
-                    autoCompleteTextView?.setText(getList()[position], false)
-                    onItemSelectedListener?.onItemSelected(this, position)
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
+        if (position < currentList.size && position >= 0 && currentList.isNotEmpty()) {
+            if (position < currentList.size) {
+                autoCompleteTextView?.setText(currentList[position], false)
+                onItemSelectedListener?.onItemSelected(this, position)
             }
         }
+    }
+
+    fun textClear() {
+        autoCompleteTextView?.setText("", false)
+    }
+
+    fun setText(text: String) {
+        autoCompleteTextView?.setText(text, false)
     }
 
     fun setOnItemSelectedListener(onItemSelectedListener: OnItemSelectedListener) {
@@ -149,42 +137,16 @@ class CustomSpinner : TextInputLayout, AdapterView.OnItemSelectedListener,
 
     //region Override Methods
     //region override onItemSelectedListener
-    override fun onItemSelected(
-        parent: AdapterView<*>?, view: View?, position: Int, id: Long
-    ) {
-        autoCompleteTextView?.threshold = Integer.MAX_VALUE
-        onItemSelectedListener?.onItemSelected(this, position)
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-    }
-
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         onItemSelectedListener?.onItemSelected(this, position)
     }
-
-    fun textClear() {
-        autoCompleteTextView?.setText("", false)
-    }
-
-    fun setText(text: String) {
-        // autoCompleteTextView?.setSelection(getList().indexOf(text))
-        autoCompleteTextView?.setText(text, false)
-    }
-
     //endregion override onItemSelectedListener
     //endregion Override Methods
-    interface OnItemSelectedListener {
-        fun onItemSelected(view: CustomSpinner, position: Int)
-        fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
 
-    }
-
-    interface OnClickListener {
-        fun onClickListener(view: CustomSpinner)
-    }
-
-    interface OnTextChangeListener {
-        fun onTextChange(text: CharSequence?)
+    companion object {
+        const val TEXT_SIZE = 10F
+        const val BOX_CORNER_RADII = 10F
+        const val PADDING_LEFT = 10
+        const val ZERO = 0
     }
 }

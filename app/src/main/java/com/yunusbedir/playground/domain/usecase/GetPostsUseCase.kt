@@ -1,17 +1,16 @@
 package com.yunusbedir.playground.domain.usecase
 
-import android.util.Log
 import com.yunusbedir.base.domain.UseCase
 import com.yunusbedir.base.domain.UseCaseState
 import com.yunusbedir.playground.data.remote.model.PostsResponse
-import com.yunusbedir.playground.data.remote.repository.MockApiRepositoryImpl
 import com.yunusbedir.playground.domain.model.result.PostResult
+import com.yunusbedir.playground.domain.repository.MockApiRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class GetPostsUseCase @Inject constructor(
-    private val mockApiRepositoryImpl: MockApiRepositoryImpl
+    private val mockApiRepositoryImpl: MockApiRepository
 ) : UseCase<Any?, List<PostResult>> {
 
 
