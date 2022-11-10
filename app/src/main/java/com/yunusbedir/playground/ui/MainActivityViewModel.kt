@@ -17,8 +17,12 @@ class MainActivityViewModel : BaseViewModel() {
 
     init {
         viewModelScope.launch {
-            delay(1_000L)
+            delay(DELAY)
             _isLoading.value = false
         }
+    }
+
+    companion object {
+        const val DELAY = 1_000L
     }
 }

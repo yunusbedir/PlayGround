@@ -21,8 +21,7 @@ abstract class BaseFragment<VB : ViewBinding>(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = bindingInflater.invoke(inflater)
-        if (_binding == null) throw IllegalArgumentException("Binding can not be null!")
-        return _binding!!.root
+        return _binding?.root
     }
 
     /** Memory leaky i engellemek için destory durumunda _binding sıfırlanmalıdır. **/

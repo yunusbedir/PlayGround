@@ -50,7 +50,7 @@ class LocationService : Service() {
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        locationClient.getLocationUpdates(10000L).catch { e -> e.printStackTrace() }
+        locationClient.getLocationUpdates(INTERVAL).catch { e -> e.printStackTrace() }
             .onEach { location ->
                 val lat = location.latitude.toString()
                 val long = location.longitude.toString()
@@ -78,5 +78,6 @@ class LocationService : Service() {
     companion object {
         const val ACTION_START = "ACTION_START"
         const val ACTION_STOP = "ACTION_STOP"
+        const val INTERVAL = 10_000L
     }
 }

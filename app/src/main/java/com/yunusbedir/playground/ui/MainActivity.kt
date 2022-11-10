@@ -18,14 +18,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     override fun setupUI() {
+        // Setup Views
     }
 
     override fun setupCollectAndObserve() {
-
+        // Setup Collect States
     }
 
     override fun setupListeners() {
-
+        // Setup Listeners
     }
 
 }

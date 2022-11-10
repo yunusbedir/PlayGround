@@ -23,8 +23,7 @@ abstract class BaseDialogFragment<VB : ViewBinding>(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = bindingInflater.invoke(inflater)
-        if (_binding == null) throw IllegalArgumentException("Binding can not be null!")
-        return _binding!!.root
+        return _binding?.root
     }
 
     override fun onStart() {
@@ -34,7 +33,7 @@ abstract class BaseDialogFragment<VB : ViewBinding>(
         val width = metrics.widthPixels
         view?.post {
             dialog?.window?.setLayout(
-                width * 8 / 12, WindowManager.LayoutParams.WRAP_CONTENT
+                width * WEIGHT, WindowManager.LayoutParams.WRAP_CONTENT
             )
         }
     }
@@ -75,4 +74,7 @@ abstract class BaseDialogFragment<VB : ViewBinding>(
     abstract fun setupListeners()
     // endregion abstract fun
 
+    companion object {
+        const val WEIGHT = 8 / 12
+    }
 }
