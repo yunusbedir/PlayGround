@@ -86,7 +86,7 @@ jobs:
       - name: Build app and test APKs
         run: |
           chmod +x gradlew
-          ./gradlew :app:assembleDebug && ./gradlew  :app:assembleDebugAndroidTest
+          ./gradlew :app:assembleQaDebug && ./gradlew  :app:assembleQaDebugAndroidTest
 
       - name: Stop Gradle
         run: ./gradlew --stop
