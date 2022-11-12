@@ -95,4 +95,7 @@ dependencies {
 
     /** COROUTINES **/
     implementation(libs.kotlinCoroutines)
+
+    /** SWIPE REFRESH LAYOUT **/
+    implementation(libs.swipeRefreshLayout)
 }

@@ -21,6 +21,7 @@ kotlinCoroutines                    = "1.6.4"
 playServicesLocation                = "20.0.0"
 lifecycleKtx                        = "2.5.1"
 kotlinxJvm                          = "0.5.0"
+swipeRefreshLayout                  = "1.1.0"
 
 # test libraries
 testJunit                           = "4.13.2"
@@ -57,6 +58,7 @@ kotlinCoroutines                    = { module = "org.jetbrains.kotlinx:kotlinx-
 playServicesLocation                = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 lifecycleKtx                        = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleKtx" }
 kotlinxJvm                          = { module = "org.jetbrains.kotlinx:kotlinx-metadata-jvm", version.ref = "kotlinxJvm" }
+swipeRefreshLayout                  = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swipeRefreshLayout" }
 
 
 # test libraries
